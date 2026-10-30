@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#222321">
+  <title>Admin | Tarangan Associates</title>
+  <link rel="stylesheet" href="admin.css?v=three-d-designs-20261030c">
+  <script src="../supabase-config.js"></script>
+  <script src="admin.js?v=three-d-designs-20261030c" defer></script>
+  <script src="three-d-designs.js?v=three-d-designs-20261030c" defer></script>
+  <script src="leads-ui.js?v=leads-ui-20261029" defer></script>
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <a class="admin-brand" href="../index.html">
+        <img class="brand-logo" src="../public/logos.png" alt="">
+        <span class="brand-copy">
+          <strong>Tarangan Associates</strong>
+          <span>Management Studio</span>
+        </span>
+      </a>
+      <div class="header-actions">
+        <span class="secure-label"><span aria-hidden="true"></span> Secure workspace</span>
+        <a class="back-link" href="../index.html">View website <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <section class="login-card" id="login-view" aria-labelledby="login-title">
+      <div class="login-aside">
+        <p class="eyebrow">Tarangan Associates · Private Workspace</p>
+        <p class="login-aside-title">Welcome,<br>Mr. Abhishek Dhawale.</p>
+        <p class="login-aside-copy">Your dedicated workspace for managing your website, upcoming projects, and client enquiries.</p>
+      </div>
+      <div class="login-content">
+        <p class="eyebrow">Administrator access</p>
+        <h1 id="login-title">Welcome back, Abhishek.</h1>
+        <p class="intro">Sign in to access your personalized website dashboard.</p>
+        <form id="login-form">
+          <label for="login-email">Email address</label>
+          <input id="login-email" name="email" type="email" autocomplete="username" required>
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="button button-primary" type="submit">Sign in <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="notice" id="login-notice" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="dashboard" id="dashboard-view" hidden aria-labelledby="dashboard-title">
+      <div class="dashboard-heading">
+        <div class="dashboard-title-block">
+          <p class="breadcrumb">Workspace <span aria-hidden="true">/</span> Overview</p>
+          <p class="eyebrow">Administration</p>
+          <h1 id="dashboard-title">Welcome to your website dashboard, Mr. Abhishek.</h1>
+          <p class="intro">Your website, upcoming projects, and client enquiries — all in one place.</p>
+        </div>
+        <div class="account-actions">
+          <span class="account-chip"><span class="account-avatar" aria-hidden="true">AD</span><span id="signed-in-user"></span></span>
+          <button class="button button-quiet" id="sign-out" type="button">Sign out</button>
+        </div>
+      </div>
+
+      <p class="notice" id="dashboard-notice" role="status" aria-live="polite"></p>
+
+      <div class="summary-grid" aria-label="Workspace summary">
+        <article class="summary-card">
+          <span class="summary-icon" aria-hidden="true">01</span>
+          <div><span class="summary-label">Upcoming projects</span><strong id="projects-count">—</strong></div>
+          <span class="summary-caption">Across your portfolio</span>
+        </article>
+        <article class="summary-card">
+          <span class="summary-icon summary-icon-sage" aria-hidden="true">02</span>
+          <div><span class="summary-label">Client enquiries</span><strong id="leads-count">—</strong></div>
+          <span class="summary-caption">Submitted through your website</span>
+        </article>
+      </div>
+
+      <nav class="dashboard-tabs" aria-label="Admin sections" role="tablist">
+        <button class="tab-button is-active" id="projects-tab" type="button" role="tab" aria-controls="projects-panel" data-panel="projects-panel" aria-selected="true"><span>Upcoming Projects</span><span class="tab-count" id="projects-tab-count">—</span></button>
+        <button class="tab-button" id="leads-tab" type="button" role="tab" aria-controls="leads-panel" data-panel="leads-panel" aria-selected="false"><span>Leads</span><span class="tab-count" id="leads-tab-count">—</span></button>
+        <button class="tab-button" id="three-d-designs-tab" type="button" role="tab" aria-controls="three-d-designs-panel" data-panel="three-d-designs-panel" aria-selected="false"><span>3D Designs</span><span class="tab-count" id="three-d-designs-tab-count">—</span></button>
+      </nav>
+
+      <section class="dashboard-panel" id="projects-panel" role="tabpanel" aria-labelledby="projects-tab">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Portfolio management</p>
+            <h2 id="projects-title">Upcoming Projects</h2>
+            <p class="panel-description">Curate the projects and concepts visitors see on your website.</p>
+          </div>
+          <button class="button button-primary add-project-button" type="button" id="add-project"><span aria-hidden="true">＋</span> Add project</button>
+        </div>
+        <form class="editor-card" id="project-form">
+          <div class="editor-heading">
+            <div>
+              <p class="eyebrow">Project details</p>
+              <h3 id="project-form-title">Add a project</h3>
+            </div>
+            <span class="editor-step">01 <span aria-hidden="true">/</span> 01</span>
+          </div>
+          <input id="project-id" name="id" type="hidden">
+          <div class="form-grid">
+            <div class="form-section">
+              <p class="form-section-title">Project details</p>
+              <div class="form-fields">
+                <div class="field">
+                  <label for="project-title">Project title <span class="required-mark">*</span></label>
+                  <input id="project-title" name="title" required maxlength="160" placeholder="e.g. Courtyard Residence">
+                </div>
+                <div class="field">
+                  <label for="project-category">Category</label>
+                  <input id="project-category" name="category" maxlength="120" placeholder="e.g. Residential interiors">
+                </div>
+                <div class="field">
+                  <label for="project-location">Location</label>
+                  <input id="project-location" name="location" maxlength="160" placeholder="City, state">
+                </div>
+                <div class="field">
+                  <label for="project-status">Project status</label>
+                  <input id="project-status" name="status" value="Upcoming" maxlength="80">
+                </div>
+              </div>
+            </div>
+            <div class="form-section">
+              <p class="form-section-title">Project imagery</p>
+              <div class="upload-dropzone" id="project-image-dropzone">
+                <input id="project-image-file" type="file" accept="image/jpeg,image/png,image/webp" hidden aria-describedby="upload-hint upload-error">
+                <div class="upload-empty" id="upload-empty">
+                  <span class="upload-icon" aria-hidden="true">↑</span>
+                  <div><strong>Upload project image</strong><span>Drag and drop an image here, or <button class="upload-browse" type="button" id="browse-project-image">choose a file</button></span></div>
+                  <span class="upload-hint" id="upload-hint">JPG, PNG or WebP · Up to 10 MB</span>
+                </div>
+                <div class="image-preview" id="image-preview" hidden>
+                  <img id="project-image-preview" alt="Project image preview">
+                  <div class="preview-details"><div><strong id="preview-filename">Project image</strong><span id="preview-caption">Ready to upload</span></div><button class="button button-quiet" type="button" id="remove-project-image">Remove image</button></div>
+                </div>
+              </div>
+              <p class="field-error" id="upload-error" role="alert" hidden></p>
+              <div class="upload-progress" id="upload-progress" role="status" aria-live="polite" hidden>
+                <div class="progress-copy"><span id="upload-progress-label">Preparing image…</span><span id="upload-progress-value">0%</span></div>
+                <progress id="upload-progress-bar" max="100" value="0">0%</progress>
+              </div>
+            </div>
+            <div class="form-section">
+              <p class="form-section-title">Description</p>
+              <div class="field">
+                <label for="project-description">Project overview</label>
+                <textarea id="project-description" name="description" rows="4" placeholder="Share a concise introduction to this project."></textarea>
+                <span class="field-help">This description is shown on the public project listing.</span>
+              </div>
+            </div>
+            <div class="publish-row">
+              <p class="form-section-title">Publishing</p>
+              <label class="publish-toggle">
+                <input id="project-published" name="is_published" type="checkbox">
+                <span class="toggle-control" aria-hidden="true"></span>
+                <span><strong>Publish on website</strong><small>Make this project visible to website visitors.</small></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit" id="project-save">Save project <span aria-hidden="true">→</span></button>
+            <button class="button button-quiet" type="button" id="project-cancel" hidden>Cancel</button>
+          </div>
+        </form>
+        <div class="records-heading"><div><h3>Project portfolio</h3><p>Manage visibility and details for each project.</p></div></div>
+        <div class="records project-records" id="projects-list" aria-live="polite"></div>
+      </section>
+
+      <section class="dashboard-panel" id="three-d-designs-panel" role="tabpanel" aria-labelledby="three-d-designs-tab" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Image portfolio</p>
+            <h2>3D Designs <span class="panel-count" id="three-d-designs-count">—</span></h2>
+            <p class="panel-description">Manage the images featured in Explore Our 3D Designs.</p>
+          </div>
+          <button class="button button-secondary" id="refresh-three-d-designs" type="button">Refresh designs</button>
+        </div>
+        <form class="editor-card" id="three-d-design-form">
+          <div class="editor-heading">
+            <div>
+              <p class="eyebrow">Design details</p>
+              <h3 id="three-d-design-form-title">Add a design</h3>
+            </div>
+            <span class="editor-step">01 <span aria-hidden="true">/</span> 01</span>
+          </div>
+          <input id="three-d-design-id" name="id" type="hidden">
+          <div class="three-d-design-form-grid">
+            <label class="field">
+              <span>Title <span class="required-mark">*</span></span>
+              <input name="title" required maxlength="160" placeholder="e.g. Contemporary Loft Interior">
+            </label>
+            <label class="field">
+              <span>Category <span class="required-mark">*</span></span>
+              <input name="category" required maxlength="120" placeholder="e.g. Residential Architecture">
+            </label>
+            <label class="field three-d-design-description">
+              <span>Description</span>
+              <textarea name="description" rows="3" maxlength="2000" placeholder="Describe this design."></textarea>
+            </label>
+            <label class="field">
+              <span>Design image <span class="required-mark" data-required-image>*</span></span>
+              <input id="three-d-image-file" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+              <small class="field-help">JPG, JPEG, PNG or WebP; up to 10 MB.</small>
+              <span class="three-d-current-file" id="three-d-image-current"></span>
+            </label>
+            <label class="field">
+              <span>Display order</span>
+              <input name="display_order" type="number" step="1" value="0">
+            </label>
+            <label class="field">
+              <span>Publication status</span>
+              <select name="status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </label>
+            <label class="three-d-featured-toggle">
+              <input name="is_featured" type="checkbox">
+              <span>Feature this design</span>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" id="three-d-design-save" type="submit">Save design</button>
+            <button class="button button-quiet" id="three-d-design-cancel" type="button" hidden>Cancel edit</button>
+          </div>
+        </form>
+        <p class="notice three-d-design-notice" id="three-d-design-notice" role="status" aria-live="polite"></p>
+        <div class="records-heading">
+          <div><h3>Design library</h3><p>Draft designs are visible only to authorized admins.</p></div>
+        </div>
+        <div class="three-d-design-list" id="three-d-design-list" aria-live="polite">
+          <p class="empty-state">Open the 3D Designs tab to load saved designs.</p>
+        </div>
+      </section>
+
+      <section class="dashboard-panel" id="leads-panel" role="tabpanel" aria-labelledby="leads-tab" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Client relationships</p>
+            <h2 id="leads-title">Leads <span class="panel-count" id="leads-panel-count">—</span></h2>
+            <p class="panel-description">Manage enquiries, track follow-ups, and stay connected with potential clients.</p>
+          </div>
+          <div class="lead-panel-actions">
+            <button class="button button-secondary" id="refresh-leads" type="button"><span aria-hidden="true">↻</span> Refresh leads</button>
+            <button class="button button-danger-quiet" id="delete-all-leads" type="button">Delete all leads</button>
+          </div>
+        </div>
+        <div class="leads-toolbar" id="leads-toolbar" hidden>
+          <label class="lead-search">
+            <span class="sr-only">Search leads</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"></circle><path d="m15.4 15.4 4.2 4.2"></path></svg>
+            <input id="search-leads" type="search" placeholder="Search by name, phone or email" autocomplete="off">
+          </label>
+          <label class="lead-status-filter">
+            <span class="sr-only">Filter by status</span>
+            <select id="filter-lead-status" aria-label="Filter leads by status">
+              <option value="">All statuses</option>
+            </select>
+          </label>
+          <label class="lead-select-page">
+            <input id="select-page-leads" type="checkbox">
+            <span>Select page</span>
+          </label>
+          <span id="leads-selection-count" aria-live="polite">0 selected</span>
+          <button class="button button-danger-quiet" id="delete-selected-leads" type="button" disabled>Delete selected</button>
+        </div>
+        <div class="records" id="leads-list" aria-live="polite"></div>
+        <nav class="lead-pagination" id="leads-pagination" aria-label="Lead pages" hidden>
+          <span id="leads-page-summary" aria-live="polite"></span>
+          <div class="lead-page-controls">
+            <button class="button button-secondary" id="previous-leads-page" type="button">Previous</button>
+            <span id="leads-page-status"></span>
+            <button class="button button-secondary" id="next-leads-page" type="button">Next</button>
+          </div>
+        </nav>
+      </section>
+    </section>
+    <dialog class="confirm-dialog" id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+      <div class="confirm-content">
+        <span class="confirm-icon" aria-hidden="true">!</span>
+        <p class="eyebrow">Please confirm</p>
+        <h2 id="confirm-title">Delete this project?</h2>
+        <p id="confirm-message"></p>
+        <form method="dialog" class="confirm-actions">
+          <button class="button button-secondary" type="submit" value="cancel">Keep project</button>
+          <button class="button button-danger" type="submit" value="confirm">Delete project</button>
+        </form>
+      </div>
+    </dialog>
+    <dialog class="confirm-dialog delete-all-dialog" id="delete-all-confirm-dialog" aria-labelledby="delete-all-confirm-title" aria-describedby="delete-all-confirm-message">
+      <div class="confirm-content">
+        <span class="confirm-icon" aria-hidden="true">!</span>
+        <p class="eyebrow">Final confirmation</p>
+        <h2 id="delete-all-confirm-title">Permanently delete all leads?</h2>
+        <p id="delete-all-confirm-message">This will permanently delete every lead record. This action cannot be undone.</p>
+        <label class="delete-all-confirm-label" for="delete-all-confirm-input">Type DELETE to confirm</label>
+        <input id="delete-all-confirm-input" type="text" autocomplete="off" spellcheck="false">
+        <form method="dialog" class="confirm-actions">
+          <button class="button button-secondary" type="submit" value="cancel">Cancel</button>
+          <button class="button button-danger" id="confirm-delete-all" type="submit" value="confirm" disabled>Delete all leads</button>
+        </form>
+      </div>
+    </dialog>
+  </main>
+</body>
+</html>
