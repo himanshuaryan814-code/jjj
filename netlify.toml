@@ -1,0 +1,18 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# This site uses hash-based navigation (/#/about), so the root index is the entry point.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
